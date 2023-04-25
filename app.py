@@ -1,74 +1,25 @@
-# -*- coding:UTF-8 -*-
+# -*- coding: utf-8 -*-
 import streamlit as st
-import pandas as pd
-
+from utils import html_temp
+from utils import dec_temp
+from eda_app import run_eda
+from ml_app import run_ml_app
 def main():
-    st.title("Hello World")
+    st.markdown(html_temp, unsafe_allow_html=True)
 
-    #test
-    st.title('This is so {}'.format("good"))
+    menu = ['HOME','EDA','ML','About']
+    choice = st.sidebar.selectbox('Menu', menu)
 
-    #Header
-    st.header('This is Header')
-
-    # Subheader
-    st.subheader('This is subHeader')
-
-    # Markdown
-    st.markdown('## This is Markdown')
-
-    # 색상이 들어간 텍스트 feature
-    st.success('성공')
-    st.warning('경고')
-    st.info('정보와 관련된 탭')
-    st.error('에러 메시지')
-    st.exception('예외처리')
-
-    # st.write()
-    st.write('일반 텍스트')
-    st.write(1+2)
-    st.write(dir(str))
-    st.title(':sunglasses:')
-
-    # Helf
-    st.help(range)
-    st.help(st.title)
-
-    #데이터 불러오기
-    iris = pd.read_csv('data/iris.csv')
-
-    st.title('IRIS 테이블')
-    st.dataframe(iris , 200 , 100) #Height , Width
-
-    st.title('table')
-    st.table(iris)
-
-    st.title('write()')
-    st.write(iris)
-
-    myCode = """"
-    def hello():
-        print("hi")
-    """
-    st.code(myCode , language="Python")
-
-    # 위젯 , button 기능 활용
-    name = 'Mina'
-    if st.button('Submit'):
-        st.write(f'name: {name.upper()}')
-
-        # RadioButton
-        s_state = st.radio('Status', ('활성화', '비활성화'))
-        if s_state == '활성화':
-            st.success('활성화 상태')
-        else:
-            st.error('비활성화 상태')
-
-            #Check Box
-        if st.checkbox('show/hide'):
-            st.text('무언가를 보여줘 !!')
+    if choice == 'HOME':
+        st.subheader('HOME')
+        st.markdown(dec_temp, unsafe_allow_html=True)
+    elif choice == 'EDA':
+        run_eda()
+    elif choice == 'ML':
+        run_ml_app()
+    else:
+        st.subheader('About')
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
